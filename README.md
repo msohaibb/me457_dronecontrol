@@ -1,2 +1,4 @@
 # me457-dronecontrol
- Personal repository for ME457 (Drone Control)
+ Personal repository to try things with drone code. Will update README later when I have time.
+ 
+ Project collaborators are Sohaib Bhatti, Kyle Deolall, and Ariel Tamayev.
