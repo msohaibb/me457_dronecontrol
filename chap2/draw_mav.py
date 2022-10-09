@@ -104,13 +104,13 @@ class DrawMav:
                            [-fuse_l3 + tail_l, 1/2 * tail_w, 0],
                            [-fuse_l3, 1/2 * tail_w, 0],
                            [-fuse_l3, -1/2 * tail_w, 0],
-                           [-fuse_l3 + tail_l, 1/2 * tail_w, 0],
+                           [-fuse_l3 + tail_l, -1/2 * tail_w, 0],
                            [-fuse_l3 + tail_l, 0, 0],
-                           [-fuse_l3, 0, tail_h],
+                           [-fuse_l3, 0, -tail_h],
                            ]).T
 
         # scale points for better rendering
-        scale = 200
+        scale = 75
         points = scale * points
 
         #   define the colors for each face of triangular mesh
@@ -120,6 +120,18 @@ class DrawMav:
         yellow = np.array([1., 1., 0., 1])
         meshColors = np.empty((13, 3, 4), dtype=np.float32)
         meshColors[0] = yellow
+        meshColors[1] = yellow
+        meshColors[2] = yellow
+        meshColors[3] = yellow
+        meshColors[4] = red
+        meshColors[5] = red
+        meshColors[6] = red
+        meshColors[7] = red
+        meshColors[8] = green
+        meshColors[9] = green
+        meshColors[10] = green
+        meshColors[11] = green
+        meshColors[12] = blue
 
         return points, meshColors
 
@@ -130,6 +142,18 @@ class DrawMav:
           (a rectangle requires two triangular mesh faces)
         """
         points = points.T
-        mesh = np.array([[points[0], points[1], points[2]]])
+        mesh = np.array([[points[0], points[1], points[2]],
+                         [points[0], points[2], points[3]],
+                         [points[0], points[3], points[4]],
+                         [points[0], points[1], points[4]],
+                         [points[1], points[2], points[5]],
+                         [points[1], points[4], points[5]],
+                         [points[2], points[3], points[5]],
+                         [points[3], points[4], points[5]],
+                         [points[6], points[7], points[8]],
+                         [points[6], points[8], points[9]],
+                         [points[10], points[11], points[12]],
+                         [points[10], points[12], points[13]],
+                         [points[5], points[14], points[15]]])
 
         return mesh
