@@ -3,6 +3,7 @@
 Personal repository to try things with drone code without mucking up main repo.
 
 Log:
+
 *10/9 - Chapter 2, Chapter 3 sort of complete, weird bug where plane keeps going north*
 
 Project collaborators are Sohaib Bhatti, Kyle Deolall, and Ariel Tamayev.
