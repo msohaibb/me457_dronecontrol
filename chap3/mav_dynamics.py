@@ -117,8 +117,6 @@ class MavDynamics:
         east_dot = (2 * (e1 * e2 + e3 * e0)) * u + (e2**2 + e0**2 - e1**2 - e3**2) * v + (2 * (e2 * e3 - e1 * e0)) * w
         down_dot = (2 * (e1 * e3 - e2 * e0)) * u + (2 * (e2 * e3 + e1 * e0)) * v + (e3**2 + e0**2 - e1**2 - e2**2) * w
 
-        pos_dot = np.array[(north_dot, east_dot, down_dot)]
-
         # position dynamics
         u_dot = r * v - q * w + (1 / MAV.mass) * fx
         v_dot = p * w - r * u + (1 / MAV.mass) * fy

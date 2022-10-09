@@ -46,7 +46,7 @@ class Plotter:
 
         # initialize Qt gui application and window
         self.default_window_size = (1000, 800)
-        self.app = pg.QtWidgets.QApplication([])
+        self.app = pg.QtGui.QApplication([])
         self.window = pg.GraphicsWindow(title=window_title)
         self.window.resize(*self.default_window_size)
         self.window.setBackground(self.background_color)
