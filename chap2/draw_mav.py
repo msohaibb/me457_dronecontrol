@@ -91,13 +91,26 @@ class DrawMav:
 
         # points are in NED coordinates
         # define the points on the aircraft following diagram Fig 2.14
-        points = np.array([[0, 0, 0],  # point 1 [0]
-                           [1, 1, 1],  # point 2 [1]
-                           [1, 1, 0],  # point 3 [2]
+        points = np.array([[fuse_l1, 0, 0],
+                           [fuse_l2, 1/2 * fuse_w, -1/2 * fuse_h],
+                           [fuse_l2, 1/2 * fuse_w, 1/2 * fuse_h],
+                           [fuse_l2, -1/2 * fuse_w, 1/2 * fuse_h],
+                           [fuse_l2, -1/2 * fuse_w, -1/2 * fuse_h],
+                           [-fuse_l3, 0, 0],
+                           [0, 1/2 * wing_w, 0],
+                           [-wing_l, 1/2 * wing_w, 0],
+                           [-wing_l, -1/2 * wing_w, 0],
+                           [0, -1/2 * wing_w, 0],
+                           [-fuse_l3 + tail_l, 1/2 * tail_w, 0],
+                           [-fuse_l3, 1/2 * tail_w, 0],
+                           [-fuse_l3, -1/2 * tail_w, 0],
+                           [-fuse_l3 + tail_l, 1/2 * tail_w, 0],
+                           [-fuse_l3 + tail_l, 0, 0],
+                           [-fuse_l3, 0, tail_h],
                            ]).T
 
         # scale points for better rendering
-        scale = 50
+        scale = 200
         points = scale * points
 
         #   define the colors for each face of triangular mesh
