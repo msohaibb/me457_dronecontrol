@@ -6,7 +6,7 @@ Log:
 
 *10/9 - Chapter 2, Chapter 3 sort of complete, weird bug where plane keeps going north*
 
-*10/10 - All good!*
+*10/10 - All good! (Findings from Presentation 1 - Look into gyroscopic coupling. The reason it's rolling eccentrically is because of the J_xz; if you set it equal to 0, it ends up rolling symmetrically along the x-axis. MAKE GRAPHS BIGGER!)*
 
 Project collaborators are Sohaib Bhatti, Kyle Deolall, and Ariel Tamayev.
 
