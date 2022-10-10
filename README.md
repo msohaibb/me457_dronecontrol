@@ -1,14 +1,12 @@
 # ME457 - Drone Control (Fall 2022)
 
-I guess this is the main repo now. Probably not a good idea to keep this public because of dirty no-good copycats. Oh well.
+Repository containing programming assignments for ME457: Drone Control, taken during Fall 2022. Project collaborators are Sohaib Bhatti, Kyle Deolall, and Ariel Tamayev. Probably not a good idea to keep this public during the semester because of mucky no-good code stealers, but what can you do? Oh well.
 
 Log:
 
 *10/9 - Chapter 2, Chapter 3 sort of complete, weird bug where plane keeps going north*
 
 *10/10 - All good! (Findings from Presentation 1 - Look into gyroscopic coupling. The reason it's rolling eccentrically is because of the J_xz; if you set it equal to 0, it ends up rolling symmetrically along the x-axis. MAKE GRAPHS BIGGER!)*
-
-Project collaborators are Sohaib Bhatti, Kyle Deolall, and Ariel Tamayev.
 
 ---
 
