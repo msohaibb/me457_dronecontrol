@@ -9,6 +9,7 @@ import sys
 sys.path.append('..')
 import numpy as np
 import parameters.simulation_parameters as SIM
+import parameters.aerosonde_parameters as MAV
 
 
 from chap2.mav_viewer import MavViewer
