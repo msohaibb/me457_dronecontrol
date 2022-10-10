@@ -1,6 +1,6 @@
 # ME457 - Drone Control (Fall 2022)
 
-Personal repository to try things with drone code without mucking up main repo.
+Personal repository to try things with drone code without mucking up main repo. Might accidentally turn into the main repo oops.
 
 Log:
 
