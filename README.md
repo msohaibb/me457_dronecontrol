@@ -6,7 +6,7 @@ Log:
 
 *10/9 - Chapter 2, Chapter 3 sort of complete, weird bug where plane keeps going north*
 
-*10/10 - All good! //
+*10/10 - All good!*
 
 Project collaborators are Sohaib Bhatti, Kyle Deolall, and Ariel Tamayev.
 
