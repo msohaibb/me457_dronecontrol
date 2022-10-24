@@ -153,8 +153,6 @@ class MavDynamics:
 
         # convert wind vector from world to body frame and add gust
         wind_body_frame = Quaternion2Rotation(self._state[6:10]) @ steady_state + gust
-            # I think Python indexing works that way...I'm not sure, I'm used to MATLAB
-            # -BA
 
         # velocity vector relative to the airmass
         v_air = self._state[3:6] - wind_body_frame
@@ -183,6 +181,9 @@ class MavDynamics:
         :param delta: np.matrix(delta_a, delta_e, delta_r, delta_t)
         :return: Forces and Moments on the UAV np.matrix(Fx, Fy, Fz, Ml, Mn, Mm)
         """
+
+        # I think the above comment is mistaken- the delta order should be e, a, r, t -BA
+
         phi, theta, psi = Quaternion2Euler(self._state[6:10])
         p = self._state.item(10)
         q = self._state.item(11)
@@ -199,48 +200,52 @@ class MavDynamics:
         # compute Lift and Drag Forces
         # p 45
         F_lift = 1/2 * MAV.rho * self._Va**2 * MAV.S_wing * (CL + MAV.C_L_q * ((MAV.c * q) / (2 * self._Va)) +
-                MAV.C_L_delta_e * delta[1])
+                MAV.C_L_delta_e * delta.elevator)
 
         F_drag = 1/2 * MAV.rho * self._Va**2 * MAV.S_wing * (CD + MAV.C_D_q * ((MAV.c * q) / (2 * self._Va)) +
-                MAV.C_D_delta_e * delta[1])
+                MAV.C_D_delta_e * delta.elevator)
 
         # compute propeller thrust and torque
         thrust_prop, torque_prop = self._motor_thrust_torque(self._Va, delta.throttle)
 
         # compute longitudinal forces in body frame
         # p 49
+
+        # You can screw yourself I typed all of this out nicely, I refuse to use F_list and F_drag and matrix
+        # multiply this out :) -BA
+
         fx = 1/2 * MAV.rho * self._Va**2 * MAV.S_wing * (
                 (-CD * np.cos(self._alpha) + CL * np.sin(self._alpha)) +
                 (-MAV.C_D_q * np.cos(self._alpha) + MAV.C_L_q * np.sin(self._alpha)) * ((MAV.c * q) / (2 * self._Va)) +
-                (-MAV.C_D_delta_e * np.cos(self._alpha) + MAV.C_L_delta_e * np.sin(self._alpha)) * delta[1])
+                (-MAV.C_D_delta_e * np.cos(self._alpha) + MAV.C_L_delta_e * np.sin(self._alpha)) * delta.elevator)
 
         fz = 1/2 * MAV.rho * self._Va**2 * MAV.S_wing * (
                 (-CD * np.sin(self._alpha) + CL * np.cos(self._alpha)) +
                 (-MAV.C_D_q * np.sin(self._alpha) + MAV.C_L_q * np.cos(self._alpha)) * ((MAV.c * q) / (2 * self._Va)) +
-                (-MAV.C_D_delta_e * np.sin(self._alpha) + MAV.C_L_delta_e * np.cos(self._alpha)) * delta[1])
+                (-MAV.C_D_delta_e * np.sin(self._alpha) + MAV.C_L_delta_e * np.cos(self._alpha)) * delta.elevator)
 
         # compute lateral forces in body frame
         # p 50
         fy = 1/2 * MAV.rho * self._Va**2 * MAV.S_wing * (
                 (MAV.C_Y_0 + MAV.C_Y_beta * self._beta + MAV.C_Y_p * (MAV.b * p)/(2 * self._Va) +
-                MAV.C_Y_r * (MAV.b * r)/(2 * self._Va) + MAV.C_Y_delta_a * delta[0] + MAV.C_Y_delta_r * delta[2]))
+                MAV.C_Y_r * (MAV.b * r)/(2 * self._Va) + MAV.C_Y_delta_a * delta.elevator + MAV.C_Y_delta_r * delta.rudder))
 
         # compute longitudinal torque in body frame
         # p 45
         My = (MAV.rho / 2) * self._Va**2 * MAV.S_wing * MAV.c * (MAV.C_m_0 + MAV.C_m_alpha * self._alpha +
-                MAV.C_m_q * (MAV.c * q) / (2 * self._Va) + MAV.C_m_delta_e * delta[1])
+                MAV.C_m_q * (MAV.c * q) / (2 * self._Va) + MAV.C_m_delta_e * delta.elevator)
                 # Yaw moment
 
         # compute lateral torques in body frame
         # p 50-51
         Mx = (MAV.rho/2) * self._Va**2 * MAV.S_wing * MAV.b * (MAV.C_ell_0 + MAV.C_ell_beta * self._beta +
                 MAV.C_ell_p * (MAV.b * p)/(2 * self._Va) + MAV.C_ell_r * (MAV.b * r)/(2 * self._Va) +
-                MAV.C_ell_delta_a * delta[0] + MAV.C_ell_delta_r * delta[2])
+                MAV.C_ell_delta_a * delta.aileron + MAV.C_ell_delta_r * delta.rudder)
                 # Roll moment
 
         Mz = (MAV.rho/2) * self._Va**2 * MAV.S_wing * MAV.b * (MAV.C_n_0 + MAV.C_n_beta * self._beta +
                 MAV.C_n_p * (MAV.b * p)/(2 * self._Va) + MAV.C_n_r * (MAV.b * r)/(2 * self._Va) +
-                MAV.C_n_delta_a * delta[0] + MAV.C_n_delta_r * delta[2])
+                MAV.C_n_delta_a * delta.aileron + MAV.C_n_delta_r * delta.rudder)
                 # Yaw moment
 
         self._forces[0] = fx
