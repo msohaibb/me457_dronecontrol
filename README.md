@@ -7,7 +7,8 @@ Log:
 *10/9 - Chapter 2, Chapter 3 sort of complete, weird bug where plane keeps going north*
 
 *10/10 - All good! (Findings from Presentation 1 - Look into gyroscopic coupling. The reason it's rolling eccentrically is because of the J_xz; if you set it equal to 0, it ends up rolling symmetrically along the x-axis. MAKE GRAPHS BIGGER!)*
-
+ 
+ *10/23 - All not good (mostly good). Need to finish Mav_Dynamics, there's some wind stuff there I don't feel like finishing (sick of looking at code), and some thrust stuff too. Wind simulation needs transfer function stuff as well. Updated Aersonde with E2 Aersonde Stuff (p 276 of Beard). The wind simulation parameters Va...Lw, and all the sigmas are from the book, not sure if they're correct (4.4). Also Sohaib says there's a fundemental dyanmics problem from week 1 (10/10) which still needs to be solved I believe. 
 ---
 
 **Instructor:** Dirk Luchtenburg<br/>
