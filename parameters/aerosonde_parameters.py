@@ -41,7 +41,7 @@ b = 2.8956
 c = 0.18994
 S_prop = 0.2027
 rho = 1.2682
-e = 0.9
+e = 0.9 # Oswald efficiency factor
 AR = (b**2) / S_wing
 gravity = 9.8
 
@@ -105,7 +105,7 @@ i0 = 1.5                     # no-load (zero-torque) current (A)
 ncells = 12.
 V_max = 3.7 * ncells  # max voltage for specified number of battery cells
 
-# Coeffiecients from prop_data fit
+# Coefficients from prop_data fit
 C_Q2 = -0.01664
 C_Q1 = 0.004970
 C_Q0 = 0.005230
