@@ -32,9 +32,13 @@ class WindSimulation:
 
         # Dryden transfer functions (section 4.4 UAV book)
         # slide 40
-        self.u_w = transferFunction(num=np.array([[___]]), den=np.array([[___]]),Ts=0.01)
-        self.v_w = transferFunction(num=np.array([[___]]), den=np.array([[___]]),Ts=0.01)
-        self.w_w = transferFunction(num=np.array([[___]]), den=np.array([[___]]),Ts=0.01)
+        self.u_w = transferFunction(num=np.array([[sigma_u * np.sqrt(2*Va/Lu)]]), den=np.array([[1, Va/Lu]]),Ts=0.01)
+        self.v_w = transferFunction(num=np.array([[sigma_v * np.sqrt(3*Va/Lv),
+            sigma_v * np.sqrt(3*Va/Lv) * Va/(np.sqrt(3) * Lv)]]),
+                den=np.array([[1, 2*Va/Lv, (Va/Lv)**2]]),Ts=0.01)
+        self.w_w = transferFunction(num=np.array([[sigma_v * np.sqrt(3*Va/Lw),
+            sigma_v * np.sqrt(3*Va/Lw) * Va/(np.sqrt(3) * Lw)]]),
+                den=np.array([[1, 2*Va/Lw, (Va/Lw)**2]]),Ts=0.01)
         self._Ts = Ts
 
     def update(self):
