@@ -161,7 +161,7 @@ class MavDynamics:
         wr = v_air[2]
 
         # compute airspeed
-        self._Va = np.sqrt(ur ** 2 + vr ** 2 + wr ** 2)
+        self._Va = np.sqrt(ur**2 + vr**2 + wr**2)
 
         # compute angle of attack
         if ur == 0:
@@ -181,8 +181,6 @@ class MavDynamics:
         :param delta: np.matrix(delta_a, delta_e, delta_r, delta_t)
         :return: Forces and Moments on the UAV np.matrix(Fx, Fy, Fz, Ml, Mn, Mm)
         """
-
-        # I think the above comment is mistaken- the delta order should be e, a, r, t -BA
 
         phi, theta, psi = Quaternion2Euler(self._state[6:10])
         p = self._state.item(10)
@@ -206,7 +204,7 @@ class MavDynamics:
                 MAV.C_D_delta_e * delta.elevator)
 
         # compute propeller thrust and torque
-        thrust_prop, torque_prop = self._motor_thrust_torque(self._Va, delta.throttle)
+        # thrust_prop, torque_prop = self._motor_thrust_torque(self._Va, delta.throttle)
 
         # compute longitudinal forces in body frame
         # p 49
@@ -234,7 +232,7 @@ class MavDynamics:
         # p 45
         My = (MAV.rho / 2) * self._Va**2 * MAV.S_wing * MAV.c * (MAV.C_m_0 + MAV.C_m_alpha * self._alpha +
                 MAV.C_m_q * (MAV.c * q) / (2 * self._Va) + MAV.C_m_delta_e * delta.elevator)
-                # Yaw moment
+                # Pitching moment
 
         # compute lateral torques in body frame
         # p 50-51
@@ -273,10 +271,8 @@ class MavDynamics:
 
         adv = self._Va / (n * MAV.D_prop)
 
-        thrust_prop = MAV.rho * n**2 * MAV.D_prop**4 * (
-                MAV.C_T2 * adv**2 + MAV.C_T1 * adv + MAV.C_T0)
-        torque_prop = MAV.rho * n**2 * MAV.D_prop**5 * (
-                MAV.C_Q2 * adv**2 + MAV.C_Q1 * adv + MAV.C_Q0)
+        thrust_prop = MAV.rho * n**2 * MAV.D_prop**4 * (MAV.C_T2 * adv**2 + MAV.C_T1 * adv + MAV.C_T0)
+        torque_prop = MAV.rho * n**2 * MAV.D_prop**5 * (MAV.C_Q2 * adv**2 + MAV.C_Q1 * adv + MAV.C_Q0)
         return thrust_prop, torque_prop
 
     def _update_true_state(self):
